@@ -1,5 +1,7 @@
 import { apiSlice } from './apiSlice';
-const USERS_URL = '/api/book';
+const BASE_URL = 'https://thepods-server.vercel.app';
+const USERS_URL = `${BASE_URL}/api/book`;
+
 
 export const bookingApiSlice = apiSlice.injectEndpoints({
     endpoints: (builder) => ({
