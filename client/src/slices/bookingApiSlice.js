@@ -14,7 +14,7 @@ export const bookingApiSlice = apiSlice.injectEndpoints({
       }),
       getPaymentKey: builder.mutation({
           query: () => ({
-            url: `api/getkey`,
+            url: `${USERS_URL}api/getkey`,
             method: 'GET',
           }),
         }),
