@@ -16,8 +16,9 @@ connectDB();
 
 const app = express();
 
+// Enable CORS globally
 app.use(cors({
-  origin: 'https://thepods.vercel.app', // Replace with your Vercel frontend URL
+  origin: 'https://thepods.vercel.app',
   credentials: true,
 }));
 
@@ -33,9 +34,13 @@ app.use('/api/contactdetail', contactRoutes);
 app.get('/api/getkey', (req, res) => {
   res.status(200).json({ key: process.env.RAZORPAY_ID_KEY });
 });
+
+// Add your other routes here
+
 app.get('/', (req, res) => {
   res.send('API is running....');
 });
+
 app.use(notFound);
 app.use(errorHandler);
 
