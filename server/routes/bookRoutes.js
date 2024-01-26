@@ -10,7 +10,7 @@ import { protect } from '../middleware/authMiddleware.js';
 
 const router = express.Router();
 
-router.route('/checkout').post(protect, checkout);
+router.route('/checkout').post( checkout);
 router.route('/paymentverification').post(protect,paymentVerification);
 router.route('/bookingconfirmation').post(protect,bookConfirm);
 router.route('/bookings/:userId').get(protect, getBookings);
