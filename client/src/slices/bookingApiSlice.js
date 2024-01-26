@@ -1,8 +1,8 @@
 import { apiSlice } from './apiSlice';
 const BASE_URL = 'https://thepods-server.vercel.app';
 const USERS_URL = `${BASE_URL}/api/book`;
-const user=localStorage.getItem('userInfo')
-const jwt=user.jwt;
+// const user=localStorage.getItem('userInfo')
+// const jwt=user.jwt;
 
 export const bookingApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
