@@ -18,10 +18,10 @@ router.post('/auth', authUser);
 router.post('/logout', logoutUser);
 router
   .route('/profile')
-  .get(protect, getUserProfile)
-  .put(protect, updateUserProfile);
+  .get(getUserProfile)
+  .put(updateUserProfile);
   
-router.route('/profile/:userId').delete(protect,deleteUser);
+router.route('/profile/:userId').delete(deleteUser);
 router.post('/otpverification',verifyOTP);
 router.post('/resendotpverificationcode',resendOTP);
 

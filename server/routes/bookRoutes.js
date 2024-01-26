@@ -11,9 +11,9 @@ import { protect } from '../middleware/authMiddleware.js';
 const router = express.Router();
 
 router.route('/checkout').post( checkout);
-router.route('/paymentverification').post(protect,paymentVerification);
-router.route('/bookingconfirmation').post(protect,bookConfirm);
-router.route('/bookings/:userId').get(protect, getBookings);
-router.route('/bookings/:bookingId').delete(protect, deleteBooking);
+router.route('/paymentverification').post(paymentVerification);
+router.route('/bookingconfirmation').post(bookConfirm);
+router.route('/bookings/:userId').get( getBookings);
+router.route('/bookings/:bookingId').delete( deleteBooking);
 
 export default router;
