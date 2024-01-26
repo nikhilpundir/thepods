@@ -7,8 +7,9 @@ const protect = asyncHandler(async (req, res, next) => {
 
   token = req.cookies.jwt;
 
-  if (token) {
-    try {
+  // if (token) {
+  try {
+    if (token) {
       const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
       const user = await User.findById(decoded.userId).select('-password');
@@ -22,15 +23,16 @@ const protect = asyncHandler(async (req, res, next) => {
       req.user = user;
 
       next();
-    } catch (error) {
-      console.error(error);
+    } else {
       res.status(401);
-      throw new Error('Not authorized, token failed');
+      throw new Error('Not authorized, no token');
     }
-  } else {
+  } catch (error) {
+    console.error(error);
     res.status(401);
-    throw new Error('Not authorized, no token');
+    throw new Error('Not authorized, token failed');
   }
+  
 });
 
 export { protect };
