@@ -59,21 +59,11 @@ function LoginView() {
                     position: 'bottom-center',
                   });
                 dispatch(setCredentials({ ...res }));
-
-
+                setTimeout(myGreeting, 1000);
                 navigate('/');
-                // notify();
                 
             } catch (error) {
-                // Handle error if needed
-                // toast.custom((t) => (
-                //     <div
-                //         className={`bg-white px-6 py-4 shadow-md rounded-full ${t.visible ? 'animate-enter' : 'animate-leave'
-                //             }`}
-                //     >
-                //         Hello TailwindCSS! 👋
-                //     </div>
-                // ));
+                
                 toast.error(error.data.message, {
                     position: 'bottom-center',
                   });
