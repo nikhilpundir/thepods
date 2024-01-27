@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { BookingCard } from '../components/index';
 import { useGetBookingQuery } from "../slices/bookingApiSlice";
-import {useDeleteUserMutation} from "../slices/usersApiSlice" 
+import {useDeleteUserMutation,useLogoutMutation} from "../slices/usersApiSlice" 
 import { useNavigate } from 'react-router-dom';
 
 const Profile = () => {
@@ -14,7 +14,8 @@ const Profile = () => {
   const { data: bookings, isLoading, isError } = useGetBookingQuery({ userId: userInfo?._id },{ refetchOnMountOrArgChange: true });
   // const queryClient = useQueryClient();
   const [deleteuser]=useDeleteUserMutation();
-
+  const [logoutApiCall] = useLogoutMutation();
+  
 
   useEffect(() => {
     // refetch();
@@ -29,6 +30,8 @@ const Profile = () => {
 const deleteUserHandler=async ()=>{
     try {
       const res=await deleteuser({ userId: userInfo?._id }).unwrap();
+      await logoutApiCall().unwrap();
+      navigate("/");
     } catch (error) {
       console.log(error);
     }
