@@ -1,16 +1,16 @@
-import React from "react";
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useRegisterMutation } from "../slices/usersApiSlice";
 import { setCredentials } from "../slices/authSlice";
-import {registerImage} from "../assets/assets.js"
+import { registerImage } from "../assets/assets.js";
+import PuffLoader from "react-spinners/PuffLoader";
 
 const SignupView = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
+  const [errors, setErrors] = useState({});
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -19,24 +19,51 @@ const SignupView = () => {
 
   const { userInfo } = useSelector((state) => state.auth);
 
-
   useEffect(() => {
     if (userInfo?.verified) {
       navigate("/");
     }
   }, [navigate, userInfo]);
 
+  const validateForm = () => {
+    let isValid = true;
+    const newErrors = {};
+
+    // Validate name
+    if (!name.trim()) {
+      newErrors.name = "Name is required";
+      isValid = false;
+    }
+
+    // Validate email
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!email.trim() || !emailRegex.test(email)) {
+      newErrors.email = "Valid email is required";
+      isValid = false;
+    }
+
+    // Validate password
+    if (password.length < 6) {
+      newErrors.password = "Password must be at least 6 characters";
+      isValid = false;
+    }
+
+    setErrors(newErrors);
+    return isValid;
+  };
+
   const submitHandler = async (e) => {
     e.preventDefault();
 
-    try {
-      const res = await register({ name, email, password }).unwrap();
-      dispatch(setCredentials({ ...res }));
-      navigate(`/otpconfirmation`);
-      
-    } catch (err) {
-      // Handle error if needed
-      console.error('Error:', err.message);
+    if (validateForm()) {
+      try {
+        const res = await register({ name, email, password }).unwrap();
+        dispatch(setCredentials({ ...res }));
+        navigate(`/otpconfirmation`);
+      } catch (err) {
+        // Handle error if needed
+        console.error("Error:", err.message);
+      }
     }
   };
 
@@ -55,7 +82,7 @@ const SignupView = () => {
           <div className="max-w-xl lg:max-w-3xl">
             <Link className="block text-blue-600" to="/">
               <span className="sr-only">Home</span>
-              
+
             </Link>
 
             <h1 className="mt-6 text-2xl font-bold text-gray-900 sm:text-3xl md:text-4xl">
@@ -84,8 +111,12 @@ const SignupView = () => {
                   name="first_name"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
-                  className="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm"
+                  className={`mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm ${errors.name ? "border-red-500" : ""
+                    }`}
                 />
+                {errors.name && (
+                  <p className="mt-1 text-sm text-red-500">{errors.name}</p>
+                )}
               </div>
 
               <div className="col-span-6">
@@ -103,8 +134,12 @@ const SignupView = () => {
                   name="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm"
+                  className={`mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm ${errors.email ? "border-red-500" : ""
+                    }`}
                 />
+                {errors.email && (
+                  <p className="mt-1 text-sm text-red-500">{errors.email}</p>
+                )}
               </div>
 
               <div className="col-span-6">
@@ -122,29 +157,15 @@ const SignupView = () => {
                   name="password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm"
+                  className={`mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm ${errors.password ? "border-red-500" : ""
+                    }`}
                 />
+                {errors.password && (
+                  <p className="mt-1 text-sm text-red-500">{errors.password}</p>
+                )}
               </div>
 
-              {/* Uncomment this section if you want to include password confirmation
-              <div className="col-span-6 sm:col-span-3">
-                <label
-                  htmlFor="PasswordConfirmation"
-                  className="block text-sm font-medium text-gray-700"
-                >
-                  Password Confirmation
-                </label>
 
-                <input
-                  type="password"
-                  id="PasswordConfirmation"
-                  name="password_confirmation"
-                  value={confirmPassword}
-                  onChange={(e) => setConfirmPassword(e.target.value)}
-                  className="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm"
-                />
-              </div>
-              */}
 
               <div className="col-span-6">
                 <p className="text-sm text-gray-500">
@@ -162,12 +183,18 @@ const SignupView = () => {
               </div>
 
               <div className="col-span-6 sm:flex sm:items-center sm:gap-4">
-                <button
+                {isLoading?<PuffLoader color="red"
+                  // loading={isLoading}
+                  size={50}
+                  aria-label="Loading Spinner"
+                  data-testid="loader" />:<button
                   type="submit"
                   className="inline-block shrink-0 rounded-md border border-blue-600 bg-blue-600 px-12 py-3 text-sm font-medium text-white transition hover:bg-transparent hover:text-blue-600 focus:outline-none focus:ring active:text-blue-500"
                 >
                   Create an account
-                </button>
+                </button>}
+
+                
 
                 <p className="mt-4 text-sm text-gray-500 sm:mt-0">
                   Already have an account?

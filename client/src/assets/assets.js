@@ -10,7 +10,7 @@ import era1 from './era1.jpeg'
 import era2 from './era2.jpeg'
 import era3 from './era3.jpg'
 import AboutImage from './AboutImage.jpg' 
-import NikhilCTO from './NikhilCTO.jpeg'
+import NikhilCTO2 from './NikhilCTO2.jpg'
 import Abhishek from './Abhishek.jpg' 
 export{
     mainLogo,
@@ -23,6 +23,6 @@ export{
     registerImage,
     era1,era2,era3,
     AboutImage,
-    NikhilCTO,
+    NikhilCTO2,
     Abhishek,
 }

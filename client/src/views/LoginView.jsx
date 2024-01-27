@@ -3,11 +3,13 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLoginMutation } from '../slices/usersApiSlice';
 import { setCredentials } from '../slices/authSlice';
+import PuffLoader from "react-spinners/PuffLoader";
 
 function LoginView() {
-
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [emailError, setEmailError] = useState('');
+    const [passwordError, setPasswordError] = useState('');
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -22,17 +24,43 @@ function LoginView() {
         }
     }, [navigate, userInfo]);
 
+    const validateForm = () => {
+        let isValid = true;
+
+        // Email validation
+        if (!email.trim()) {
+            setEmailError('Email is required');
+            isValid = false;
+        } else if (!/\S+@\S+\.\S+/.test(email)) {
+            setEmailError('Invalid email address');
+            isValid = false;
+        } else {
+            setEmailError('');
+        }
+
+        // Password validation
+        if (!password.trim()) {
+            setPasswordError('Password is required');
+            isValid = false;
+        } else {
+            setPasswordError('');
+        }
+
+        return isValid;
+    };
+
     const submitHandler = async (e) => {
         e.preventDefault();
 
-        try {
-            const res = await login({ email, password }).unwrap();
-            dispatch(setCredentials({ ...res }));
-            navigate('/');
-        } catch (error) {
-            // Handle error if needed
-            console.error(error);
-            
+        if (validateForm()) {
+            try {
+                const res = await login({ email, password }).unwrap();
+                dispatch(setCredentials({ ...res }));
+                navigate('/');
+            } catch (error) {
+                // Handle error if needed
+                console.error(error);
+            }
         }
     };
 
@@ -55,11 +83,13 @@ function LoginView() {
                     <div className="relative">
                         <input
                             type="email"
-                            className="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
+                            className={`w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm ${emailError ? 'border-red-500' : ''}`}
                             placeholder="Enter your email"
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
                         />
+                        {emailError && <p className="text-red-500 text-xs mt-1">{emailError}</p>}
+
 
                         <span className="absolute inset-y-0 end-0 grid place-content-center px-4">
                             <svg
@@ -88,11 +118,13 @@ function LoginView() {
                     <div className="relative">
                         <input
                             type="password"
-                            className="form-input w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
+                            className={`form-input w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm ${passwordError ? 'border-red-500' : ''}`}
                             placeholder="Enter your password"
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
                         />
+                        {passwordError && <p className="text-red-500 text-xs mt-1">{passwordError}</p>}
+
 
                         <span className="absolute inset-y-0 end-0 grid place-content-center px-4">
                             <svg
@@ -127,12 +159,16 @@ function LoginView() {
                         </Link>
                     </p>
 
-                    <button
+                    {isLoading?<PuffLoader color="red"
+                  // loading={isLoading}
+                  size={50}
+                  aria-label="Loading Spinner"
+                  data-testid="loader" />:<button
                         type="submit"
                         className="inline-block rounded-lg bg-blue-500 px-5 py-3 text-sm font-medium text-white"
                     >
                         Sign in
-                    </button>
+                    </button>}
                 </div>
             </form>
         </div>

@@ -1,5 +1,5 @@
 import React from 'react'
-import { AboutImage, NikhilCTO,Abhishek } from '../assets/assets.js'
+import { AboutImage, NikhilCTO2,Abhishek } from '../assets/assets.js'
 
 const About = () => {
   return (
@@ -65,7 +65,7 @@ const About = () => {
       <section className="bg-white">
         <div className="py-8 px-4 mx-auto max-w-screen-xl text-center lg:py-16 lg:px-6">
           <div className="mx-auto mb-8 max-w-screen-sm lg:mb-16">
-            <h2 className="mb-4 text-4xl tracking-tight font-extrabold text-gray-900">Our team</h2>
+            <h2 className="mb-4 text-4xl tracking-tight font-semibold text-gray-900">Our team</h2>
             <p className="mt-4 text-lg leading-relaxed text-gray-600">Our dedicated team who has done all the hard work to bring this facility to India</p>
           </div>
           <div className="grid gap-2 lg:gap-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-2">
@@ -102,7 +102,7 @@ const About = () => {
 
             {/* Team member 2 */}
             <div className="text-center text-gray-500">
-            <img src={NikhilCTO} alt="CTO" className="mx-auto mb-4 w-36 h-36 rounded-full" />
+            <img src={NikhilCTO2} alt="CTO" className="mx-auto mb-4 w-36 h-36 rounded-full" />
               <h3 className="mb-1 text-2xl font-bold tracking-tight text-gray-900">
                 <a href="#">Nikhil Pundir</a>
               </h3>
