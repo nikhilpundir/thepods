@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useLoginMutation } from '../slices/usersApiSlice';
 import { setCredentials } from '../slices/authSlice';
 import PuffLoader from "react-spinners/PuffLoader";
+import toast, { Toaster } from 'react-hot-toast';
 
 function LoginView() {
     const [email, setEmail] = useState('');
@@ -51,15 +52,32 @@ function LoginView() {
 
     const submitHandler = async (e) => {
         e.preventDefault();
-
         if (validateForm()) {
             try {
                 const res = await login({ email, password }).unwrap();
+                toast.success("Login Successful", {
+                    position: 'bottom-center',
+                  });
                 dispatch(setCredentials({ ...res }));
+
+
                 navigate('/');
+                // notify();
+                
             } catch (error) {
                 // Handle error if needed
-                console.error(error);
+                // toast.custom((t) => (
+                //     <div
+                //         className={`bg-white px-6 py-4 shadow-md rounded-full ${t.visible ? 'animate-enter' : 'animate-leave'
+                //             }`}
+                //     >
+                //         Hello TailwindCSS! 👋
+                //     </div>
+                // ));
+                toast.error(error.data.message, {
+                    position: 'bottom-center',
+                  });
+                console.log(error);
             }
         }
     };
@@ -73,8 +91,9 @@ function LoginView() {
                     Welcome back! Sign in to access your pods and explore the community.
                 </p>
             </div>
-
+            <Toaster/>
             <form onSubmit={submitHandler} className="mx-auto mb-0 mt-8 max-w-md space-y-4">
+            
                 <div>
                     <label htmlFor="email" className="sr-only">
                         Email
@@ -159,14 +178,14 @@ function LoginView() {
                         </Link>
                     </p>
 
-                    {isLoading?<PuffLoader color="red"
-                  // loading={isLoading}
-                  size={50}
-                  aria-label="Loading Spinner"
-                  data-testid="loader" />:<button
-                        type="submit"
-                        className="inline-block rounded-lg bg-blue-500 px-5 py-3 text-sm font-medium text-white"
-                    >
+                    {isLoading ? <PuffLoader color="red"
+                        // loading={isLoading}
+                        size={50}
+                        aria-label="Loading Spinner"
+                        data-testid="loader" /> : <button
+                            type="submit"
+                            className="inline-block rounded-lg bg-blue-500 px-5 py-3 text-sm font-medium text-white"
+                        >
                         Sign in
                     </button>}
                 </div>

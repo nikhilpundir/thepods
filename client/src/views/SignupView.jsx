@@ -86,7 +86,7 @@ const SignupView = () => {
             </Link>
 
             <h1 className="mt-6 text-2xl font-bold text-gray-900 sm:text-3xl md:text-4xl">
-              Welcome to Sleeping Pods
+              Welcome to thePods
             </h1>
 
             <p className="mt-4 leading-relaxed text-gray-500">
@@ -169,12 +169,9 @@ const SignupView = () => {
 
               <div className="col-span-6">
                 <p className="text-sm text-gray-500">
-                  By creating an account, you agree to our
-                  <a href="#" className="text-gray-700 underline">
-                    {" "}
-                    terms and conditions{" "}
-                  </a>
-                  and
+                  By creating an account, you agree to our{" "}
+                  <a href="#" className="text-gray-700 underline"> terms and conditions</a>
+                  {" "}and{" "}
                   <a href="#" className="text-gray-700 underline">
                     privacy policy
                   </a>
@@ -197,7 +194,7 @@ const SignupView = () => {
                 
 
                 <p className="mt-4 text-sm text-gray-500 sm:mt-0">
-                  Already have an account?
+                  Already have an account?{" "}
                   <Link to="/login" className="text-gray-700 underline">
                     Log in
                   </Link>
