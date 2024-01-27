@@ -59,8 +59,7 @@ function LoginView() {
                     position: 'bottom-center',
                   });
                 dispatch(setCredentials({ ...res }));
-                setTimeout(navigate('/'), 5000);
-                // navigate('/');
+                navigate('/');
                 
             } catch (error) {
                 
