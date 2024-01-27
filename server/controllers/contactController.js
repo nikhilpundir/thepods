@@ -10,7 +10,7 @@ const sendContact = asyncHandler(async (req, res) => {
         throw Error("Empty detais not allowed");
       } 
       sendContactDetails(req,res);
-      res.status(200).json({ success: true, message:"Detail Sent Successfully" });
+      
   
     } catch (error) {
       console.log(error);
