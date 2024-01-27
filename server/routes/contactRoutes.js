@@ -5,6 +5,6 @@ import {
 
 const router = express.Router();
 
-router.post('/send',sendContact);
+router.route('/send').post(sendContact);
 
 export default router;

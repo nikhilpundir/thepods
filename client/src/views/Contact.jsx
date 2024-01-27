@@ -58,8 +58,15 @@ const Contact = () => {
           phone: phone,
           message: message,
         }).unwrap();
+        toast.success("Login Successful", {
+          position: 'bottom-center',
+        });
         console.log(res);
+
       } catch (error) {
+        toast.error(error.data.message, {
+          position: 'bottom-center',
+        });
         console.error("Error:", error.message);
       }
     }
