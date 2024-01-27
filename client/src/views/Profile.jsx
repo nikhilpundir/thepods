@@ -4,7 +4,7 @@ import { BookingCard } from '../components/index';
 import { useGetBookingQuery } from "../slices/bookingApiSlice";
 import {useDeleteUserMutation,useLogoutMutation} from "../slices/usersApiSlice" 
 import { useNavigate } from 'react-router-dom';
-
+import { logout } from "../slices/authSlice";
 const Profile = () => {
   const { userInfo } = useSelector((state) => state.auth);
   
@@ -31,6 +31,7 @@ const deleteUserHandler=async ()=>{
     try {
       const res=await deleteuser({ userId: userInfo?._id }).unwrap();
       await logoutApiCall().unwrap();
+      dispatch(logout());
       navigate("/");
     } catch (error) {
       console.log(error);
