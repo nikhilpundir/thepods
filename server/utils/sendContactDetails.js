@@ -4,7 +4,7 @@ import transporter from "../config/otpMailer.js";
 const sendContactDetails = async (req, res) => {
     const details=req.body;
     console.log(details);
-    try {
+    // try {
       const mailOptions = {
         from: process.env.EMAIL_USER,
         to: process.env.EMAIL_CONTACT,
@@ -39,9 +39,9 @@ const sendContactDetails = async (req, res) => {
 
       transporter.sendMail(mailOptions);
       console.log("sent successfully");
-    } catch (error) {
-      console.log(error);
-    }
+    // } catch (error) {
+    //   console.log(error);
+    // }
   };
 
   export default sendContactDetails;
