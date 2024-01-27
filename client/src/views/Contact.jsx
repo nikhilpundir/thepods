@@ -66,7 +66,7 @@ const Contact = () => {
         // console.log(res);
 
       } catch (error) {
-        toast.error(error.data.message, {
+        toast.error(error.message, {
           position: 'bottom-center',
         });
         console.error("Error:", error.message);
