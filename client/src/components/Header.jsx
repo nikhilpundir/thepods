@@ -171,26 +171,41 @@ function Header() {
                     Book
                   </Link>
                 </li>
+                <li>
+                  <Link
+                    to="/profile"
+                    className="block rounded-lg px-4 py-2 text-sm font-medium text-black hover:bg-gray-100 hover:text-gray-700"
+                  >
+                    Profile
+                  </Link>
+                </li>
 
                 <li>
                   <Link
                     to="/contact"
                     className="block rounded-lg px-4 py-2 text-sm font-medium text-black hover:bg-gray-100 hover:text-gray-700"
                   >
-                    Projects
+                    Contact
                   </Link>
                 </li>
+                
               </ul>
             </li>
 
             <li className="py-2">
               <form action="/logout">
-                <button
+                
+                {userInfo?.verified?<button
                   type="submit"
                   className="block w-full rounded-lg px-4 py-2 text-sm font-medium text-black [text-align:_inherit] hover:bg-gray-100 hover:text-gray-700"
                 >
                   Logout
-                </button>
+                </button>:<Link
+                  className="block w-full rounded-lg px-4 py-2 text-sm font-medium text-black [text-align:_inherit] hover:bg-gray-100 hover:text-gray-700"
+                  to="login"
+                >
+                  Login
+                </Link>}
               </form>
             </li>
           </ul>

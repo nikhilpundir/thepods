@@ -66,7 +66,7 @@ function LoginView() {
                 toast.error(error.data.message, {
                     position: 'bottom-center',
                   });
-                console.log(error);
+                // console.log(error);
             }
         }
     };

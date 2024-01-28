@@ -6,6 +6,8 @@ import { setCredentials } from "../slices/authSlice";
 import { registerImage } from "../assets/assets.js";
 import PuffLoader from "react-spinners/PuffLoader";
 
+import toast, { Toaster } from 'react-hot-toast';
+
 const SignupView = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -58,17 +60,24 @@ const SignupView = () => {
     if (validateForm()) {
       try {
         const res = await register({ name, email, password }).unwrap();
+        toast.success("Login Successful", {
+          position: 'bottom-center',
+        });
         dispatch(setCredentials({ ...res }));
         navigate(`/otpconfirmation`);
       } catch (err) {
         // Handle error if needed
-        console.error("Error:", err.message);
+        toast.error(err.message, {
+          position: 'bottom-center',
+        });
+        // console.error("Error:", err.message);
       }
     }
   };
 
   return (
     <section className="bg-white">
+      <Toaster/>
       <div className="lg:grid lg:min-h-screen lg:grid-cols-12">
         <aside className="relative block h-16 lg:order-last lg:col-span-5 lg:h-full xl:col-span-6">
           <img

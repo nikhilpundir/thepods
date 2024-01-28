@@ -4,6 +4,7 @@ import { useOtpVerifyMutation, useOtpResendMutation } from "../slices/usersApiSl
 import { Link, useNavigate } from 'react-router-dom';
 import { setCredentials } from "../slices/authSlice";
 
+import toast, { Toaster } from 'react-hot-toast';
 const OTPVerification = () => {
   const [otp, setOtp] = useState(['', '', '', '']);
 
@@ -26,10 +27,16 @@ const OTPVerification = () => {
       // const chkotp = parseInt(concatenatedString, 10); // Convert concatenated OTP to integer
 
       const res = await verifyotp({ userId: userInfo._id, otp: chkotp, }).unwrap(); // Verify OTP
+      toast.success("Verification Successful", {
+        position: 'bottom-center',
+      });
       dispatch(setCredentials({ ...res }));
 
       navigate('/'); // Navigate to home page
     } catch (error) {
+      toast.error(error.data.message, {
+        position: 'bottom-center',
+      });
       console.error(error.data.message); // Log error to console
       alert('There was an error verifying your OTP. Please try again later.'); // Show user-friendly error message
     }
@@ -39,6 +46,9 @@ const OTPVerification = () => {
     try {
       const res = await resendotp({ userId: userInfo._id, email: userInfo.email }).unwrap();
     } catch (error) {
+      toast.error(error.data.message, {
+        position: 'bottom-center',
+      });
       console.error(error.data.message); // Log error to console
       alert('There was an error resending your OTP. Please try again later.'); // Show user-friendly error message
     }
@@ -69,6 +79,7 @@ const OTPVerification = () => {
   return (
 
     <div className="min-h-screen flex items-center justify-center  bg-gray-100">
+       <Toaster/>
       <form onSubmit={submitHandler}>
         <div className="bg-white p-8 rounded shadow-md w-full sm:w-96 ">
           <h2 className="text-2xl font-semibold mb-4">Enter Verification Code</h2>
