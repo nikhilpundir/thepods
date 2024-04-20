@@ -18,7 +18,7 @@ const app = express();
 
 // Enable CORS globally
 app.use(cors({
-  origin: 'https://thepods.vercel.app',
+  origin: ['https://thepods.vercel.app', 'http://localhost:*'],
   credentials: true,
 }));
 
