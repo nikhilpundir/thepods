@@ -43,7 +43,7 @@ const sendOTPVerificationEmail = async ({ _id, email }, res) => {
       const saltRounds = 10;
       const hashedOTP = await bcrypt.hash(otp, saltRounds);
   
-      const newOTPVerification = await new UserOTPVerification({
+      const newOTPVerification =  new UserOTPVerification({
         userId: _id,
         otp: hashedOTP,
         createdAt: Date.now(),
@@ -53,9 +53,10 @@ const sendOTPVerificationEmail = async ({ _id, email }, res) => {
       await newOTPVerification.save();
       
       transporter.sendMail(mailOptions);
-      console.log("sent successfully");
+      console.log("otp mail sent successfully");
     } catch (error) {
-      console.log(error);
+      console.error("Error sending otp email:", error);
+        throw new Error('Failed to send OTP email.');
     }
   };
 
