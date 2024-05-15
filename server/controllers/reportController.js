@@ -1,6 +1,6 @@
 import asyncHandler from 'express-async-handler';
 import User from '../models/userModel.js';
-const getAllUser = asyncHandler(async (req, res) => {
+const getAllUsers = asyncHandler(async (req, res) => {
     try {
       // Query all users
       const users = await User.find();
