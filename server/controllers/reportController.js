@@ -12,14 +12,7 @@ const getAllUsers = asyncHandler(async (req, res) => {
       }
   
       // Return the users
-      res.status(200).json({ success: true, 
-        _id: users._id,
-        name: users.name,
-        email: users.email,
-        verified: users.verified,
-        isDeleted: users.isDeleted,
-        role:users.role
-       });
+      res.status(200).json({ success: true, users });
     } catch (error) {
       console.error(error);
       res.status(500).json({ success: false, message: 'Internal Server Error: Failed to fetch users' });
