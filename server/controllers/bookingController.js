@@ -110,7 +110,7 @@ const deleteBooking=asyncHandler(async(req,res)=>{
       return res.status(404).json({ message: 'booking not found' });
     }
 
-    res.status(200).json({ message: 'booking marked as cancelled' });
+    res.status(200).json({ message: 'Your booking is cancelled successfully' });
   } catch (error) {
     res.status(500).json({ message: 'Server Error', error: error.message });
   }
