@@ -10,6 +10,7 @@ import { notFound, errorHandler } from './middleware/errorMiddleware.js';
 import userRoutes from './routes/userRoutes.js';
 import bookRoutes from './routes/bookRoutes.js';
 import contactRoutes from './routes/contactRoutes.js';
+import reportRoutes from './routes/reportRoutes.js'
 const port = process.env.PORT || 5000;
 
 connectDB();
@@ -30,6 +31,7 @@ app.use(cookieParser());
 app.use('/api/users', userRoutes);
 app.use('/api/book', bookRoutes);
 app.use('/api/contactdetail', contactRoutes);
+app.use('/api/report', reportRoutes);
 
 app.get('/api/getkey', (req, res) => {
   res.status(200).json({ key: process.env.RAZORPAY_ID_KEY });
