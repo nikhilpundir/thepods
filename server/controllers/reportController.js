@@ -20,5 +20,5 @@ const getAllUsers = asyncHandler(async (req, res) => {
 
 export {
     
-    getAllUser,
+    getAllUsers,
   };
