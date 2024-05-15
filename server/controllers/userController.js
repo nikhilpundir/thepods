@@ -24,6 +24,7 @@ const authUser = asyncHandler(async (req, res) => {
       email: user.email,
       verified: user.verified,
       isDeleted: user.isDeleted,
+      role:user.role
     });
   } else {
     if (user.isDeleted) {
@@ -68,6 +69,7 @@ const registerUser = asyncHandler(async (req, res) => {
       email: user.email,
       verified: user.verified,
       isDeleted: user.isDeleted,
+      role:user.role
     });
 
   } catch (error) {
@@ -100,6 +102,7 @@ const getUserProfile = asyncHandler(async (req, res) => {
       email: user.email,
       verified: user.verified,
       isDeleted: user.isDeleted,
+      role:user.role
     });
   } else {
     res.status(404);
@@ -129,6 +132,7 @@ const updateUserProfile = asyncHandler(async (req, res) => {
       email: updatedUser.email,
       verified: user.verified,
       isDeleted: user.isDeleted,
+      role:user.role
     });
   } else {
     res.status(404);
@@ -159,6 +163,7 @@ const deleteUser = asyncHandler(async (req, res) => {
       email: user.email,
       verified: user.verified,
       isDeleted: user.isDeleted,
+      role:user.role
     });
     // res.status(200).json({ message: 'User marked as deleted' });
   } catch (error) {
@@ -201,6 +206,7 @@ const verifyOTP = asyncHandler(async (req, res) => {
               email: user.email,
               verified: user.verified,
               isDeleted: user.isDeleted,
+              role:user.role
             });
             // res.status(200).json({ "message": "OK: OTP verified" });
           }
