@@ -7,7 +7,7 @@
 ## 📄 Project Documentation
 For a detailed breakdown of the system architecture, Software Requirement Specification (SRS), and design diagrams, refer to the full project report:
 
-👉 **[View Full Project Report (PDF)](https://docs.google.com/document/d/1R-wT3J1X5eTkxEhuU-_2M2cHcuLLOj-p/edit?usp=sharing&ouid=109277774552672632974&rtpof=true&sd=true)**
+👉 **[View Full Project Report (PDF)](https://drive.google.com/file/d/1dVNmTJJwuwQVYzgPXbPCUJSN1EtB1ndZ/view?usp=sharing)**
 
 ---
 
